@@ -6,6 +6,7 @@ export default function App() {
   return (
     <View style={styles.container}>
         <Text>Ändrar min branch</Text>
+        <Text>Argon har ändrat detta</Text>
     </View>
   );
 }
