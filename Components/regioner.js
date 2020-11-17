@@ -6,7 +6,7 @@ function Regioner(){
     return(
         <View>
 
-            <Text>Regioner</Text>
+            <Text>Regionerna</Text>
 
         </View>
     )
