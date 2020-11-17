@@ -6,7 +6,7 @@ function MainPage(){
     return(
         <View>
 
-            <Text>Main page</Text>
+            <Text>Main pagee</Text>
 
         </View>
     )
