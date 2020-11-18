@@ -1,13 +1,15 @@
 import React from 'react'
 import {View, Text, Button} from 'react-native'
 
-function Statistik(){
-
+function Statistik({route,navigation}){
+    const {Region}=route.params
     return(
         <View>
 
-            <Text>Statistik</Text>
-
+            <Text>Denna region har id: {Region.regionId}</Text>
+            <Text>Du tittar på region: {Region.regionTitel}</Text>
+            
+            <Button title="Go back to regioner" onPress={()=> navigation.navigate('regioner')}/>
         </View>
     )
 }
