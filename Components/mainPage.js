@@ -1,14 +1,12 @@
 import React, {useState} from 'react'
 import {useFocusEffect} from '@react-navigation/native'
-import {View, Text, Button, ActivityIndicator, FlatList, ScrollView} from 'react-native'
-import {TouchableOpacity } from 'react-native-gesture-handler'
-import Regioner from './regioner'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {View, Text, Button, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native'
+//import {TouchableOpacity } from 'react-native-gesture-handler'
 
 function MainPage({navigation}){
 
     const [isLoading, setLoading]=useState(true)
-    const [regioner, setRegioner]=useState([])
+    const [kateogorier, setKategorier]=useState([])
     //call the function when the main screen is loaded, stop and clean when you go from the main.
     useFocusEffect(
         //call this function (fetching data from api) just one time.
@@ -16,12 +14,12 @@ function MainPage({navigation}){
 
             if (isLoading == true)
             {
-                fetch ('https://www.vantetider.se/api/Ajax/GetWaitingAndCapacityByService/10506')
+                fetch ('https://www.vantetider.se/api/Ajax//GetServicesByArea/4')
                 .then(respone=>respone.json())
                 .then(data=>{
-                    console.log(data)
+                    //console.log(data)
                     setLoading(false)
-                    setRegioner(data.aaData)
+                    setKategorier(data.Services)
                 })
 
                 .catch(error => {
@@ -33,37 +31,23 @@ function MainPage({navigation}){
 
     return(
         <View>
-            <Text>Main page</Text>
+            <Text>Här kan du kika på statistik för väntetider inom vården i Sverige, välj kategori och titta på statistiken.</Text>
 
             <View>
             {isLoading==true ? <ActivityIndicator size="large" color="#00ff00"/> : 
             (
-                <FlatList data={regioner} keyExtractor={item=>item.regionId.toString()}
+                <FlatList data={kateogorier} keyExtractor={item=>item.id.toString()}
                  renderItem={({item})=>
-            <Text>{item.regionName}</Text>
-                
-                
-                
-                }
-                
-
-
-                
-
-
-
-
-
-                    />
-
-
-
-           
+                    <TouchableOpacity onPress={()=>{console.log(item), navigation.navigate('statistik', {kategori:item})}}>
+                        <View style={{ alignItems: "center", justifyContent: "center", height: 40 }}>
+                        <Text>{item.Name}</Text>   
+                        </View>
+                    </TouchableOpacity>                                        
+                }/>          
                 
             )}
             </View>
-            <Button title="Go to regioner" onPress={()=> navigation.navigate('regioner')}/>
-
+            
         </View>
     )
 }
